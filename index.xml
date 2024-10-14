@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tsambruni.dev</title>
+    <link>https://tsambruni.github.io/</link>
+    <description>Recent content on tsambruni.dev</description>
+    <generator>Hugo</generator>
+    <language>en-US</language>
+    <copyright>Copyright © 2024, Thomas Sambruni</copyright>
+    <atom:link href="https://tsambruni.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CV</title>
+      <link>https://tsambruni.github.io/cv/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://tsambruni.github.io/cv/</guid>
+      <description>&lt;h1 id=&#34;cv&#34;&gt;CV&lt;/h1&gt;</description>
+    </item>
+    <item>
+      <title>Uses</title>
+      <link>https://tsambruni.github.io/uses/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://tsambruni.github.io/uses/</guid>
+      <description>&lt;h1 id=&#34;uses&#34;&gt;Uses&lt;/h1&gt;</description>
+    </item>
+  </channel>
+</rss>
