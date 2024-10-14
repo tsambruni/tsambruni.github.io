@@ -1,0 +1,7 @@
+# Ignore Hugo stuff thet will be recreated by Actions
+public/
+resources/
+themes/
+# System files
+.DS_Store
+# IDE/editor specific configurations
