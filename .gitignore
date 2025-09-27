@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Node tooling
+node_modules/
+.npm/
+
+# Build artifacts
+*.log
+dist/
+.tmp/
+.out/
+
+# Editors
+*.swp
+.idea/
+.vscode/
