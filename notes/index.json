@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Welcome to my corner of the internet",
+    "slug": "welcome",
+    "date": "2025-10-11",
+    "draft": true
+  },
+  {
+    "title": "Why I built this site",
+    "slug": "why-this-site",
+    "date": "2025-10-10",
+    "draft": true
+  }
+]
