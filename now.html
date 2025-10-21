@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What I'm Doing Now - Thomas Sambruni</title>
+    <meta name="description" content="What Thomas Sambruni is currently focused on">
+    <link rel="stylesheet" href="style.css">
+    <script src="libs/marked.min.js"></script>
+</head>
+<body>
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+      <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
+
+    <div class="container">
+        <nav style="margin-bottom: 3rem;">
+            <a href="index.html" style="color: var(--text-secondary); text-decoration: none; font-size: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s ease;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to home
+            </a>
+        </nav>
+
+        <article id="nowContent">
+            <h1 class="page-title">What I'm Doing Now</h1>
+            <p style="color: var(--text-tertiary); font-size: 0.95rem; margin-bottom: 3rem;" id="lastUpdated">
+                <!-- Last updated date will be inserted here -->
+            </p>
+            <div id="nowBody">
+                <p>Loading...</p>
+            </div>
+        </article>
+
+        <footer style="margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--card-border); color: var(--text-tertiary); font-size: 0.9rem;">
+            <p style="margin-bottom: 1rem;">
+                This is a <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer" style="color: var(--accent-from); text-decoration: none;">now page</a>, inspired by <a href="https://sive.rs/nowff" target="_blank" rel="noopener noreferrer" style="color: var(--accent-from); text-decoration: none;">Derek Sivers</a>.
+            </p>
+            <p>&copy; <span id="year"></span> Thomas Sambruni</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Load and render now page content
+        async function loadNowContent() {
+            try {
+                const response = await fetch('content/now.md');
+
+                if (!response.ok) {
+                    throw new Error('Content not found');
+                }
+
+                const markdown = await response.text();
+
+                // Configure marked
+                marked.setOptions({
+                    breaks: true,
+                    gfm: true
+                });
+
+                // Render markdown to HTML
+                const htmlContent = marked.parse(markdown);
+                document.getElementById('nowBody').innerHTML = htmlContent;
+
+                // Try to get last modified date from response headers
+                const lastModified = response.headers.get('last-modified');
+                if (lastModified) {
+                    const date = new Date(lastModified);
+                    document.getElementById('lastUpdated').textContent =
+                        `Last updated: ${date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`;
+                }
+            } catch (error) {
+                console.error('Error loading now content:', error);
+                document.getElementById('nowBody').innerHTML = '<p style="color: var(--text-tertiary);">Content not available yet. Check back soon!</p>';
+            }
+        }
+
+        loadNowContent();
+    </script>
+</body>
+</html>
